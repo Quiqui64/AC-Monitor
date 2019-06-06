@@ -15,4 +15,6 @@ write down the number after apps/api/ also your going to need the access_token
 
 6. Now select “Apps” again, then select “Get All Devices” should get a pop up window right down the “id” number.
 
-7. Now open a new sketch in the Ardunio IDE with the ESP8266 file
+7. Now open a new sketch in the Ardunio IDE with the ESP8266AC.ino file or you can download file.
+
+8. Input all data you got from steps 1 through 6 into the ESP8266AC sketch the up load to your esp8266 circuit card.
