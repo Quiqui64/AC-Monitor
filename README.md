@@ -13,4 +13,6 @@ Here should be everything you need to get this running.
 5. Now select “Apps” again, at the bottom of the screen you should see something similar to this Get Device Info (replace [Device ID] with actual subscribed device id http://192.168.1.180/apps/api/934/devices/[Device ID]?access_token=77c764cf-0b31-4f6d-9403-3c452295d26a
 write down the number after apps/api/ also your going to need the access_token
 
-6. Now select “Apps” again, then select “Get All Devices” should get a pop up window right       down the “id” number.
+6. Now select “Apps” again, then select “Get All Devices” should get a pop up window right down the “id” number.
+
+7. Now open a new sketch in the Ardunio IDE with the ESP8266 file
