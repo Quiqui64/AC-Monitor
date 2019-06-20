@@ -1,4 +1,4 @@
-// Using esp8266 node mcu, a AM2302 Temp Humidity sensor
+// V0.7  Using esp8266 node mcu, a AM2302 Temp Humidity sensor
 // The AM2302 uses 3.3-5.5V DC Data Sheet link https://cdn-shop.adafruit.com/datasheets/Digital+humidity+and+temperature+sensor+AM2302.pdf
 // Here is the info for the current porstion https://www.hackster.io/whatnick/esp8266-iot-energy-monitor-b199ed
 // Things to do
@@ -20,14 +20,14 @@
 // Define Variables
 // Your WiFi credentials.
 // Set password to "" for open networks.
-const char* ssid = "????"; // your router login mame
-const char* password = "???"; // your router password
+const char* ssid = "???"; // your router login mame
+const char* password = "?????"; // your router password
 // Hubitat hub information
-static String hubIp = "???.???.?.???"; // i.e. 192.168.1.180
-const unsigned int hubPort = 39501; // Hubitat hub port, don't change this
-static String accessToken = "???"; // You get this form the Hubitat Maker API, needs to be inside " " i.e. "e1d2888d-c8d3-4828-b314-6551e6b67115"
-String appID = "???"; // Enter your MakerAPI app number " ", i.e. "875"
-String deviceID = "???"; // Enter your MakerAPI device ID number " ", i.e. "579"
+static String hubIp = "192.168.1.????";
+const unsigned int hubPort = 39501; // Hubitat hub port
+static String accessToken = "????????????????????????????"; // You get this form the Hubitat Maker API, needs to be inside " "
+String appID = "???"; // Enter your MakerAPI app number " "
+String deviceID = "???"; // Enter your MakerAPI device ID number " "
 // End of Hubitat information
 // Below you can adjust how often you want the program to report to Hubitat, be careful and don't set it up toreport to often you may flood Hubitat with data
 const unsigned long tempHumSampleTime = 60000; // You can set how often the temature and humity is checked, i.e. 60000ms = 60 seconds
@@ -51,7 +51,7 @@ void setup()
 {
   WiFi.hostname("Matt's AC Monitor"); // Name displayed on router
   // Debug console
-  Serial.begin(115200);
+//  Serial.begin(115200);
   dht.begin();
   ads.setGain(GAIN_ONE);        // 1x gain   +/- 4.096V  1 bit = 2mV      0.125mV
   ads.begin();
@@ -66,16 +66,16 @@ void setup()
   // ArduinoOTA.setPort(8266);
   ArduinoOTA.setHostname("Matt's AC Monitor");
   ArduinoOTA.onStart([]() {
-    Serial.println("Start");
+//    Serial.println("Start");
   });
   ArduinoOTA.onEnd([]() {
-    Serial.println("\nEnd");
+//    Serial.println("\nEnd");
   });
   ArduinoOTA.onProgress([](unsigned int progress, unsigned int total) {
-    Serial.printf("Progress: %u%%\r", (progress / (total / 100)));
+//    Serial.printf("Progress: %u%%\r", (progress / (total / 100)));
   });
   ArduinoOTA.onError([](ota_error_t error) {
-    Serial.printf("Error[%u]: ", error);
+//    Serial.printf("Error[%u]: ", error);
     if (error == OTA_AUTH_ERROR) Serial.println("Auth Failed");
     else if (error == OTA_BEGIN_ERROR) Serial.println("Begin Failed");
     else if (error == OTA_CONNECT_ERROR) Serial.println("Connect Failed");
@@ -83,14 +83,14 @@ void setup()
     else if (error == OTA_END_ERROR) Serial.println("End Failed");
   });
   ArduinoOTA.begin();
-  Serial.println("Ready");
-  Serial.print("IP address: ");
-  Serial.println(WiFi.localIP());
+//  Serial.println("Ready");
+//  Serial.print("IP address: ");
+//  Serial.println(WiFi.localIP());
   // Start the server
   server.begin();
-  Serial.println("Server started");
+// Serial.println("Server started");
   // Print the IP address
-  Serial.println(WiFi.localIP());  
+//  Serial.println(WiFi.localIP());  
 }
 
 void loop()
@@ -99,8 +99,7 @@ void loop()
 
   if((millis() - previousMillisTempHum) > tempHumSampleTime)// you can change how ofted the temp and humity is checked 60,000 milli secounds = 1 minute
            {
-             previousMillisTempHum = millis(); // get ready for next notificationTime
-             Serial.println("Checking temp");   
+             previousMillisTempHum = millis(); // get ready for next notificationTime  
              sendTempHum();
            }
   double current = calcIrms(256) * .1426025; // calcIrms(number of samples) * cal factor
@@ -112,7 +111,6 @@ void loop()
 //      Serial.println(secondaryValue);
       command = "setCurrentMeter";
       sendData1();
-      Serial.println(current);
   }
 }
 
